@@ -1,5 +1,13 @@
 # FEIERABEND - A mite integration for software developers
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/dreadl0ck/feierabend)](https://goreportcard.com/report/github.com/dreadl0ck/feierabend)
+[![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://raw.githubusercontent.com/dreadl0ck/feierabend/master/docs/LICENSE)
+[![Golang](https://img.shields.io/badge/Go-1.11-blue.svg)](https://golang.org)
+![Linux](https://img.shields.io/badge/Supports-Linux-green.svg)
+![macOS](https://img.shields.io/badge/Supports-macOS-green.svg)
+![windows](https://img.shields.io/badge/Supports-windows-green.svg)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg)](https://godoc.org/github.com/dreadl0ck/feierabend)
+
 Feierabend is a simple command-line utility to push time entries to the [mite](https://mite.yo.lk) time-tracking service,
 that contain a generated note with all commits from one or several [git](https://git-scm.com) projects.
 
