@@ -16,8 +16,8 @@ apiKey: "<API-KEY>"
 team: "Your Team"
 userName: "you@company.com"
 projects:
-- "/Users/you/Developer/awesome-project"
-- "/Users/you/Developer/project-xyz"
+  - "/Users/you/Developer/awesome-project"
+  - "/Users/you/Developer/project-xyz"
 ```
 
 The project config file *.feierabend.yml* is placed in the root of the repository.
