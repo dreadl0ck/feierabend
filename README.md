@@ -34,6 +34,8 @@ The idea here is, that at the end of a long working day, you are running the com
 
 in your terminal, it will prompt you for the total amount of time you worked on each project and you are free to go!
 
+To assist with the project configuration, the commandline tool can list all users, projects and customers to the terminal.
+
 ## Help
 
     $ feierabend -h
@@ -59,7 +61,7 @@ in your terminal, it will prompt you for the total amount of time you worked on 
     -yesterday
             show yesterday
 
-## How do even pronounce this weird German word
+## How do I even pronounce this weird German word?
 
 https://www.youtube.com/watch?v=WsZJNfqJDM4
 

@@ -14,11 +14,9 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"runtime"
-	"strings"
 
 	yaml "gopkg.in/yaml.v2"
 )
@@ -97,11 +95,4 @@ func parseProjectConfig(path string) *projectConfig {
 	}
 
 	return p
-}
-
-// exit with a message, an error and optional values
-func exitWith(message string, err error, values ...string) {
-	var arr = []string{message, err.Error()}
-	fmt.Println(strings.Join(append(arr, values...), " "))
-	os.Exit(1)
 }

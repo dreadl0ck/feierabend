@@ -14,7 +14,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"os/exec"
@@ -61,7 +60,7 @@ func getCommits(dir string, start time.Time, userName string) (note string, disp
 	// reset the date to the begining of the day
 	start = zeroDate(start)
 
-	fmt.Println("date:", start)
+	debug("date:", start)
 
 	// change directory to supplied path
 	err := os.Chdir(dir)
@@ -72,9 +71,7 @@ func getCommits(dir string, start time.Time, userName string) (note string, disp
 	// assemble query
 	query := []string{"log", "--date=local", "--author=" + userName, "--since=" + start.Format(time.RFC3339) + "", "--until=" + start.AddDate(0, 0, 1).Format(time.RFC3339), "--pretty=format:%s"}
 
-	if *flagDebug {
-		fmt.Println("executing: git", query)
-	}
+	debug("executing: git", query)
 
 	// execute the desired git log query
 	commits, err := exec.Command("git", query...).CombinedOutput()
@@ -103,14 +100,4 @@ func getCommits(dir string, start time.Time, userName string) (note string, disp
 	}
 
 	return
-}
-
-// reset a time.Time to the exact beginning of the day
-// e.g: 2019-02-04 00:00:00
-func zeroDate(t time.Time) time.Time {
-	t = t.Add(-time.Duration(t.Hour()) * time.Hour)
-	t = t.Add(-time.Duration(t.Minute()) * time.Minute)
-	t = t.Add(-time.Duration(t.Second()) * time.Second)
-	t = t.Add(-time.Duration(t.Nanosecond()) * time.Nanosecond)
-	return t
 }

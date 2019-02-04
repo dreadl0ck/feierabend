@@ -71,7 +71,7 @@ func postNoteToMite(note, displayNote, path string, date time.Time) {
 		panic(err)
 	}
 
-	fmt.Println("time:", d)
+	debug("time:", d)
 
 	// parse and set config for the current project
 	pc = parseProjectConfig(path)
