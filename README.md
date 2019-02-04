@@ -30,7 +30,7 @@ project: AwesomeProject
 
 The idea here is, that at the end of a long working day, you are running the command
 
-    feierabend
+    $ feierabend
 
 in your terminal, it will prompt you for the total amount of time you worked on each project and you are free to go!
 
