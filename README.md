@@ -1,7 +1,7 @@
 # FEIERABEND - A mite integration for software developers
 
-Feierabend is a simple commandline utility to push time entries to the [mite](https://mite.yo.lk) time-tracking service,
-that contain generated readable note with all commits from one or several [git](https://git-scm.com) projects.
+Feierabend is a simple command-line utility to push time entries to the [mite](https://mite.yo.lk) time-tracking service,
+that contain a generated note with all commits from one or several [git](https://git-scm.com) projects.
 
 The whole process is interactive and asks the user how long he worked on each project prior to creating the time entries.
 
