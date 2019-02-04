@@ -15,10 +15,13 @@ package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/davecgh/go-spew/spew"
 
 	"github.com/mgutz/ansi"
 
@@ -160,12 +163,12 @@ func createMiteEntry(note string, d time.Duration, date time.Time) {
 
 	u := getUserByName(uc.Name)
 	if u == nil {
-		panic("invalid user")
+		exitWith("invalid user", errors.New("no such user: "+uc.Name))
 	}
 
 	p := getProjectByName(pc.CustomerName, pc.ProjectName)
 	if p == nil {
-		panic("invalid project")
+		exitWith("invalid project", errors.New("no such project: "+pc.ProjectName+" from: "+pc.CustomerName))
 	}
 
 	// create a time entry instance
@@ -193,8 +196,12 @@ func createMiteEntry(note string, d time.Duration, date time.Time) {
 	// if the userID inside cannot be written to (coworker to coworker) the entry will be created in the apiKey user.
 	resp, err := m.CreateTimeEntry(entry)
 	if err != nil {
-		panic(err)
+		exitWith("failed to create mite entry:", err)
 	}
 
-	fmt.Println("done:", resp)
+	if *flagDebug {
+		spew.Dump(resp)
+	}
+
+	fmt.Println("mite entry created")
 }
