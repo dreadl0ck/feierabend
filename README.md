@@ -1,5 +1,16 @@
 # FEIERABEND - A mite integration for software developers
 
+    
+       ▄████████    ▄████████  ▄█     ▄████████    ▄████████    ▄████████ ▀█████████▄     ▄████████ ███▄▄▄▄   ████████▄  
+      ███    ███   ███    ███ ███    ███    ███   ███    ███   ███    ███   ███    ███   ███    ███ ███▀▀▀██▄ ███   ▀███ 
+      ███    █▀    ███    █▀  ███▌   ███    █▀    ███    ███   ███    ███   ███    ███   ███    █▀  ███   ███ ███    ███ 
+     ▄███▄▄▄      ▄███▄▄▄     ███▌  ▄███▄▄▄      ▄███▄▄▄▄██▀   ███    ███  ▄███▄▄▄██▀   ▄███▄▄▄     ███   ███ ███    ███ 
+    ▀▀███▀▀▀     ▀▀███▀▀▀     ███▌ ▀▀███▀▀▀     ▀▀███▀▀▀▀▀   ▀███████████ ▀▀███▀▀▀██▄  ▀▀███▀▀▀     ███   ███ ███    ███ 
+      ███          ███    █▄  ███    ███    █▄  ▀███████████   ███    ███   ███    ██▄   ███    █▄  ███   ███ ███    ███ 
+      ███          ███    ███ ███    ███    ███   ███    ███   ███    ███   ███    ███   ███    ███ ███   ███ ███   ▄███ 
+      ███          ██████████ █▀     ██████████   ███    ███   ███    █▀  ▄█████████▀    ██████████  ▀█   █▀  ████████▀  
+                                                  ███    ███                                                             
+
 [![Go Report Card](https://goreportcard.com/badge/github.com/dreadl0ck/feierabend)](https://goreportcard.com/report/github.com/dreadl0ck/feierabend)
 [![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://raw.githubusercontent.com/dreadl0ck/feierabend/master/docs/LICENSE)
 [![Golang](https://img.shields.io/badge/Go-1.11-blue.svg)](https://golang.org)

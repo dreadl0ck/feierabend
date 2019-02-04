@@ -33,6 +33,8 @@ var (
 
 func main() {
 
+	println(string(logo))
+
 	// parse flags
 	flag.Parse()
 
