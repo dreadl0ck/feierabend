@@ -1,5 +1,5 @@
 /*
- * FEIERABEND
+ * FEIERABEND - A mite integration for software developers
  * Copyright (c) 2018 Philipp Mieden <dreadl0ck [at] protonmail [dot] ch>
  *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
@@ -15,6 +15,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"os"
 )
 
@@ -24,36 +25,41 @@ const (
 )
 
 var (
+	// global user config
 	uc = parseUserConfig()
 )
 
 func main() {
 
+	// parse flags
 	flag.Parse()
 
+	// create a new mite client
 	m = miteClient()
-
-	var (
-		note string
-	)
 
 	// TODO: add a nice table for the lists
 	switch {
+
 	case *flagListProjects:
 		listMiteProjects()
-		return
+
 	case *flagListCustomers:
 		listMiteCustomers()
-		return
+
 	case *flagListUsers:
 		listMiteUsers()
-		return
+
+	// project was set explicitely - ignore projects from user config
 	case *flagDir != ".":
-		note = getNoteForProject(*flagDir)
+		readProject(*flagDir)
+
+	// if there are projects in the user config, use these
 	case len(uc.Projects) > 0:
 
+		// iterate over project paths
 		for _, path := range uc.Projects {
 
+			// check path
 			info, err := os.Stat(path)
 			if err != nil {
 				exitWith("invalid project path in user config:", err, path)
@@ -62,12 +68,15 @@ func main() {
 				exitWith("project path from user config is not a directory:", err, info.Name())
 			}
 
-			note = getNoteForProject(path)
-
-			postNoteToMite(note, path)
+			// check project
+			readProject(path)
 		}
+
+	// use the flag default: current directory
 	default:
-		note = getNoteForProject(*flagDir)
-		postNoteToMite(note, *flagDir)
+		readProject(*flagDir)
 	}
+
+	fmt.Println("All done! Enjoy your evening")
+	fmt.Println("Bye bye.")
 }

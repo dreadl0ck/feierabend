@@ -1,5 +1,5 @@
 /*
- * FEIERABEND
+ * FEIERABEND - A mite integration for software developers
  * Copyright (c) 2018 Philipp Mieden <dreadl0ck [at] protonmail [dot] ch>
  *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
@@ -17,16 +17,29 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"runtime"
 	"strings"
 
 	yaml "gopkg.in/yaml.v2"
 )
 
+var (
+	pathSeparator  = "/"
+	pathUserConfig = os.Getenv("HOME") + pathSeparator + configFileName
+)
+
+const configFileName = ".feierabend.yml"
+
+// config for a single project
+// defines
 type projectConfig struct {
 	CustomerName string `yaml:"customer"`
 	ProjectName  string `yaml:"project"`
 }
 
+// config for a user
+// contains data used to authenticate to mite
+// and optionally a list of global projects to check when executed
 type userConfig struct {
 	Name     string   `yaml:"name"`
 	APIKey   string   `yaml:"apiKey"`
@@ -35,15 +48,24 @@ type userConfig struct {
 	Projects []string `yaml:"projects"`
 }
 
+// parse the user config and return an instance
 func parseUserConfig() *userConfig {
 
-	c, err := ioutil.ReadFile(os.Getenv("HOME") + "/.feierabend.yml")
+	// check if we are running on windows at runtime
+	// if true adjust the config file path accordingly
+	if runtime.GOOS == "windows" {
+		pathSeparator = "\\"
+		pathUserConfig = os.Getenv("HOME") + pathSeparator + configFileName
+	}
+
+	// parse the user config
+	c, err := ioutil.ReadFile(pathUserConfig)
 	if err != nil {
 		exitWith("failed to read user config", err)
 	}
 
+	// unmarshal yaml
 	var u = new(userConfig)
-
 	err = yaml.Unmarshal(c, &u)
 	if err != nil {
 		exitWith("failed to unmarshal user config", err)
@@ -52,20 +74,23 @@ func parseUserConfig() *userConfig {
 	return u
 }
 
+// parse the project config and return an instance
 func parseProjectConfig(path string) *projectConfig {
 
+	// change directory to path
 	err := os.Chdir(path)
 	if err != nil {
 		exitWith("failed to change the current directory to "+path+":", err)
 	}
 
-	c, err := ioutil.ReadFile(".feierabend.yml")
+	// parse the project config file
+	c, err := ioutil.ReadFile(configFileName)
 	if err != nil {
 		exitWith(path+": failed to read project config", err)
 	}
 
+	// unmarshal yaml
 	var p = new(projectConfig)
-
 	err = yaml.Unmarshal(c, &p)
 	if err != nil {
 		exitWith(path+": failed to unmarshal project config", err)
@@ -74,11 +99,9 @@ func parseProjectConfig(path string) *projectConfig {
 	return p
 }
 
+// exit with a message, an error and optional values
 func exitWith(message string, err error, values ...string) {
-
 	var arr = []string{message, err.Error()}
-
 	fmt.Println(strings.Join(append(arr, values...), " "))
-
 	os.Exit(1)
 }

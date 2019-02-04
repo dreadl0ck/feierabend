@@ -1,5 +1,5 @@
 /*
- * FEIERABEND
+ * FEIERABEND - A mite integration for software developers
  * Copyright (c) 2018 Philipp Mieden <dreadl0ck [at] protonmail [dot] ch>
  *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
@@ -27,5 +27,6 @@ var (
 	flagListUsers     = flag.Bool("users", false, "list all users")
 	flagListCustomers = flag.Bool("customers", false, "list all customers")
 
-	flagDir = flag.String("dir", ".", "specify project directory")
+	flagDir   = flag.String("dir", ".", "specify project directory")
+	flagDebug = flag.Bool("debug", false, "toggle debug mode")
 )

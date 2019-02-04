@@ -1,5 +1,5 @@
 /*
- * FEIERABEND
+ * FEIERABEND - A mite integration for software developers
  * Copyright (c) 2018 Philipp Mieden <dreadl0ck [at] protonmail [dot] ch>
  *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
@@ -22,115 +22,91 @@ import (
 	"time"
 )
 
-func getNoteForProject(dir string) (note string) {
+// get a note for the project at path
+// the returned displayNote is separated by newlines
+// and intended for displaying it to the user before submission
+// this function decides at what date the git history will be checked
+func getNoteForProject(dir string) (note string, displayNote string, date time.Time) {
 
 	switch {
+
+	// check yesterday
 	case *flagYesterday:
-		note = dateFilteredByUser(dir, time.Now().AddDate(0, 0, -1), uc.UserName)
+		date = time.Now().AddDate(0, 0, -1)
+		note, displayNote = getCommits(dir, date, uc.Name)
+
+	// date was set explicitely
 	case *flagDate != "":
 		t, err := time.Parse(dateFormat, *flagDate)
 		if err != nil {
 			exitWith("invalid date:", err, *flagDate)
 		}
-		note = dateFilteredByUser(dir, t, uc.UserName)
+		date = t
+		note, displayNote = getCommits(dir, date, uc.Name)
+
+	// check today
 	default:
-		note = dateFilteredByUser(dir, time.Now(), uc.UserName)
+		date = time.Now()
+		note, displayNote = getCommits(dir, date, uc.Name)
 	}
 
 	return
 }
 
-func dateFilteredByUser(dir string, start time.Time, userName string) (out string) {
+// returns the commits for the given day in the supplied directory at path
+// the displayNote is separated by newlines and better readable at a quick glance
+// the assembled git log query will also only display records for the supplied username
+func getCommits(dir string, start time.Time, userName string) (note string, displayNote string) {
 
+	// reset the date to the begining of the day
 	start = zeroDate(start)
 
+	fmt.Println("date:", start)
+
+	// change directory to supplied path
 	err := os.Chdir(dir)
 	if err != nil {
 		panic(err)
 	}
 
-	commits, err := exec.Command("git", "log", "--author="+userName, "--since='"+start.Format(time.RFC3339)+"'", "--until='"+start.AddDate(0, 0, 1).Format(time.RFC3339)+"'", "--pretty=format:%s").CombinedOutput()
+	// assemble query
+	query := []string{"log", "--date=local", "--author=" + userName, "--since=" + start.Format(time.RFC3339) + "", "--until=" + start.AddDate(0, 0, 1).Format(time.RFC3339), "--pretty=format:%s"}
+
+	if *flagDebug {
+		fmt.Println("executing: git", query)
+	}
+
+	// execute the desired git log query
+	commits, err := exec.Command("git", query...).CombinedOutput()
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	// split data by newlines
 	lines := strings.Split(string(commits), "\n")
 	if len(lines) == 1 {
-		return lines[0]
+		return "", lines[0]
 	}
 
+	// assemble human readable notes for mite
+	// note is comma separated
+	// displayNote is a newline separated list
 	lastElem := len(lines) - 1
 	for i, line := range lines {
 		if i != lastElem {
-			out += line + ", "
+			note += line + ", "
+			displayNote += " - " + line + "\n"
 			continue
 		}
-		out += line
+		note += line
+		displayNote += " - " + line
 	}
 
 	return
 }
 
-func todayUnfiltered() (out string) {
-
-	commits, err := exec.Command("git", "log", "--since='"+*flagSince+"'", "--pretty=format:%s").CombinedOutput()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	lines := strings.Split(string(commits), "\n")
-	if len(lines) == 1 {
-		fmt.Println(lines[0])
-		os.Exit(0)
-	}
-
-	lastElem := len(lines) - 1
-	for i, line := range lines {
-		if i != lastElem {
-			out += line + ", "
-			continue
-		}
-		out += line
-	}
-
-	return
-}
-
-func yesterdayUnfiltered() (out string) {
-
-	// time.Now().Format(time.RFC3339)
-
-	now := time.Now()
-	yesterday := now.AddDate(0, 0, -1)
-	yesterday = zeroDate(yesterday)
-	today := yesterday.AddDate(0, 0, 1)
-
-	fmt.Println("yesterday:", yesterday.Format(time.RFC3339))
-	fmt.Println("today:", today.Format(time.RFC3339))
-
-	commits, err := exec.Command("git", "log", "--since='"+yesterday.Format(time.RFC3339)+"'", "--until='"+today.Format(time.RFC3339)+"'", "--pretty=format:%s").CombinedOutput()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	lines := strings.Split(string(commits), "\n")
-	if len(lines) == 1 {
-		fmt.Println(lines[0])
-		os.Exit(0)
-	}
-
-	lastElem := len(lines) - 1
-	for i, line := range lines {
-		if i != lastElem {
-			out += line + ", "
-			continue
-		}
-		out += line
-	}
-
-	return
-}
-
+// reset a time.Time to the exact beginning of the day
+// e.g: 2019-02-04 00:00:00
 func zeroDate(t time.Time) time.Time {
 	t = t.Add(-time.Duration(t.Hour()) * time.Hour)
 	t = t.Add(-time.Duration(t.Minute()) * time.Minute)
