@@ -17,6 +17,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"time"
 )
 
 const (
@@ -33,7 +34,9 @@ var (
 
 func main() {
 
-	println(string(logo))
+	ClearScreen()
+	fmt.Println(string(logo))
+	fmt.Println("                                                                           v"+version+", ", time.Now().Format(time.RFC1123))
 
 	// parse flags
 	flag.Parse()

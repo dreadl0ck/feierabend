@@ -20,6 +20,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/mgutz/ansi"
+
 	mite "github.com/gosticks/go-mite"
 )
 
@@ -49,17 +51,17 @@ func readProject(path string) {
 func postNoteToMite(note, displayNote, path string, date time.Time) {
 
 	// TODO: show current entries for the day
-	fmt.Println("-----------------------------------------------------------------")
-	fmt.Println("project:", path)
-	fmt.Println("-----------------------------------------------------------------")
+	fmt.Println(ansi.Red + path + ansi.Reset)
+	fmt.Println("---------------------------------------------------------------------------------------------------------------")
 	fmt.Println(displayNote)
-	fmt.Println("-----------------------------------------------------------------")
-
+	fmt.Println("---------------------------------------------------------------------------------------------------------------")
+	fmt.Println()
 	fmt.Println("How long did you work on the project?")
-	fmt.Println("Enter a time the format xhxm (e.g. 3h45m = 3 hours 45 minutes). Hit [Enter] to continue")
-	fmt.Print("> ")
+	fmt.Println("Enter a time the format xhxm (e.g. 3h45m = 3 hours 45 minutes).")
+	fmt.Println("Hit [Enter] or it didn't happen.")
+	fmt.Println()
+	fmt.Print(ansi.Red + " » " + ansi.Reset)
 
-	// Enter or it didn't happen.
 	b, err := bufio.NewReader(os.Stdin).ReadBytes('\n')
 	if err != nil {
 		panic(err)

@@ -1,15 +1,14 @@
 # FEIERABEND - A mite integration for software developers
 
     
-       ▄████████    ▄████████  ▄█     ▄████████    ▄████████    ▄████████ ▀█████████▄     ▄████████ ███▄▄▄▄   ████████▄  
-      ███    ███   ███    ███ ███    ███    ███   ███    ███   ███    ███   ███    ███   ███    ███ ███▀▀▀██▄ ███   ▀███ 
-      ███    █▀    ███    █▀  ███▌   ███    █▀    ███    ███   ███    ███   ███    ███   ███    █▀  ███   ███ ███    ███ 
-     ▄███▄▄▄      ▄███▄▄▄     ███▌  ▄███▄▄▄      ▄███▄▄▄▄██▀   ███    ███  ▄███▄▄▄██▀   ▄███▄▄▄     ███   ███ ███    ███ 
-    ▀▀███▀▀▀     ▀▀███▀▀▀     ███▌ ▀▀███▀▀▀     ▀▀███▀▀▀▀▀   ▀███████████ ▀▀███▀▀▀██▄  ▀▀███▀▀▀     ███   ███ ███    ███ 
-      ███          ███    █▄  ███    ███    █▄  ▀███████████   ███    ███   ███    ██▄   ███    █▄  ███   ███ ███    ███ 
-      ███          ███    ███ ███    ███    ███   ███    ███   ███    ███   ███    ███   ███    ███ ███   ███ ███   ▄███ 
-      ███          ██████████ █▀     ██████████   ███    ███   ███    █▀  ▄█████████▀    ██████████  ▀█   █▀  ████████▀  
-                                                  ███    ███                                                             
+    88888888888          88                                      88                                             88
+    88                   ""                                      88                                             88
+    88                                                           88                                             88
+    88aaaaa   ,adPPYba,  88   ,adPPYba,  8b,dPPYba,  ,adPPYYba,  88,dPPYba,    ,adPPYba,  8b,dPPYba,    ,adPPYb,88
+    88"""""  a8P_____88  88  a8P_____88  88P'   "Y8  ""     `Y8  88P'    "8a  a8P_____88  88P'   `"8a  a8"    `Y88
+    88       8PP"""""""  88  8PP"""""""  88          ,adPPPPP88  88       d8  8PP"""""""  88       88  8b       88
+    88       "8b,   ,aa  88  "8b,   ,aa  88          88,    ,88  88b,   ,a8"  "8b,   ,aa  88       88  "8a,   ,d88
+    88        `"Ybbd8"'  88   `"Ybbd8"'  88          `"8bbdP"Y8  8Y"Ybbd8"'    `"Ybbd8"'  88       88   `"8bbdP"Y8
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/dreadl0ck/feierabend)](https://goreportcard.com/report/github.com/dreadl0ck/feierabend)
 [![License](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://raw.githubusercontent.com/dreadl0ck/feierabend/master/docs/LICENSE)

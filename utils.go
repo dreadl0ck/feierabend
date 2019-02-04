@@ -43,3 +43,8 @@ func debug(values ...interface{}) {
 		fmt.Println(values...)
 	}
 }
+
+// ClearScreen prints ANSI escape to flush screen
+func ClearScreen() {
+	print("\033[H\033[2J")
+}
