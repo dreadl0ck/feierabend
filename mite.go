@@ -29,7 +29,7 @@ var (
 )
 
 // Thats us!
-const appName = "Feierabend/v0.1"
+const appName = "Feierabend/v" + version
 
 // create a mite api instance
 // appName should be a discriptive string for you application (e.g. "my-app/v0.1")

@@ -16,17 +16,16 @@ package main
 import "flag"
 
 var (
-	flagUser      = flag.String("user", "", "set a user for filtering the commits")
-	flagYesterday = flag.Bool("yesterday", false, "show yesterday")
-	flagDate      = flag.String("date", "", "set a date")
+	flagYesterday     = flag.Bool("yesterday", false, "show yesterday")
+	flagDate          = flag.String("date", "", "set a date")
+	flagDir           = flag.String("dir", ".", "specify a project directory")
+	flagDebug         = flag.Bool("debug", false, "toggle debug mode")
+	flagListProjects  = flag.Bool("projects", false, "list all available mite projects")
+	flagListUsers     = flag.Bool("users", false, "list all available mite users")
+	flagListCustomers = flag.Bool("customers", false, "list all available mite customers")
 
-	flagSince = flag.String("since", "6am", "begin of workday")
-	flagUntil = flag.String("until", "", "end of workday")
-
-	flagListProjects  = flag.Bool("projects", false, "list all projects")
-	flagListUsers     = flag.Bool("users", false, "list all users")
-	flagListCustomers = flag.Bool("customers", false, "list all customers")
-
-	flagDir   = flag.String("dir", ".", "specify project directory")
-	flagDebug = flag.Bool("debug", false, "toggle debug mode")
+	// TODO: implement
+	// flagUser      = flag.String("user", "", "set a user for filtering the commits")
+	// flagSince = flag.String("since", "6am", "begin of workday")
+	// flagUntil = flag.String("until", "", "end of workday")
 )

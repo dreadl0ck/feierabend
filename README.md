@@ -41,23 +41,17 @@ To assist with the project configuration, the commandline tool can list all user
     $ feierabend -h
     Usage of feierabend:
     -customers
-            list all customers
+            list all available mite customers
     -date string
             set a date
     -debug
             toggle debug mode
     -dir string
-            specify project directory (default ".")
+            specify a project directory (default ".")
     -projects
-            list all projects
-    -since string
-            begin of workday (default "6am")
-    -until string
-            end of workday
-    -user string
-            set a user for filtering the commits
+            list all available mite projects
     -users
-            list all users
+            list all available mite users
     -yesterday
             show yesterday
 

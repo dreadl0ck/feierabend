@@ -22,6 +22,8 @@ import (
 const (
 	// yyyy-mm-dd formatting of the magical reference date
 	dateFormat = "2006-01-02"
+
+	version = "0.1"
 )
 
 var (
