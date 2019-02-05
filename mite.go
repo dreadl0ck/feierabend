@@ -22,7 +22,6 @@ import (
 	"time"
 
 	"github.com/davecgh/go-spew/spew"
-
 	"github.com/mgutz/ansi"
 
 	mite "github.com/gosticks/go-mite"
@@ -46,6 +45,10 @@ func miteClient() *mite.Mite {
 // then initiate the upload process to mite
 func readProject(path string) {
 	note, displayNote, date := getNoteForProject(path)
+	if note == "" {
+		fmt.Println("no commits in", path)
+		return
+	}
 	postNoteToMite(note, displayNote, path, date)
 }
 
