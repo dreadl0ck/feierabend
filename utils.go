@@ -39,7 +39,7 @@ func zeroDate(t time.Time) time.Time {
 
 func debug(values ...interface{}) {
 	if *flagDebug {
-		fmt.Print("[DEBUG]:")
+		fmt.Print("[DEBUG]: ")
 		fmt.Println(values...)
 	}
 }

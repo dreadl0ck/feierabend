@@ -14,7 +14,6 @@
 package main
 
 import (
-	"log"
 	"os"
 	"os/exec"
 	"strings"
@@ -76,13 +75,15 @@ func getCommits(dir string, start time.Time, userName string) (note string, disp
 	// execute the desired git log query
 	commits, err := exec.Command("git", query...).CombinedOutput()
 	if err != nil {
-		log.Fatal(err)
+		exitWith("failed to run git log command:", err)
 	}
+
+	debug("shell output:", string(commits))
 
 	// split data by newlines
 	lines := strings.Split(string(commits), "\n")
 	if len(lines) == 1 {
-		return "", lines[0]
+		return lines[0], "- " + lines[0]
 	}
 
 	// assemble human readable notes for mite
