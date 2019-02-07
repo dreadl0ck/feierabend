@@ -66,17 +66,20 @@ func postNoteToMite(note, displayNote, path string, date time.Time) {
 	fmt.Println("Enter a time the format xhxm (e.g. 3h45m = 3 hours 45 minutes).")
 	fmt.Println("Hit [Enter] or it didn't happen.")
 	fmt.Println()
+tryagain:
 	fmt.Print(ansi.Red + " » " + ansi.Reset)
 
 	b, err := bufio.NewReader(os.Stdin).ReadBytes('\n')
 	if err != nil {
-		panic(err)
+		exitWith("failed to read from stdin", err)
 	}
 
 	// Parse supplied value as duration
 	d, err := time.ParseDuration(strings.TrimSpace(string(b)))
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
+		fmt.Println("please try again")
+		goto tryagain
 	}
 
 	debug("time:", d)
